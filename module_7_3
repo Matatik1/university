@@ -15,7 +15,8 @@ class WordsFinder:
                             str_ = str_.replace(punct, '')
                     split_str = str_.split()
                     word.append(split_str)
-        all_words[self.file_names] = word
+        sorted_words = [x for y in word for x in y]
+        all_words[f_name] = sorted_words
         return all_words
 
     def find(self, word):
@@ -23,8 +24,19 @@ class WordsFinder:
         for name,words in self.get_all_words().items():
             for i in words:
                 if word.lower() in i:
-                    wordbook[name] = words.index(i)
-                    return wordbook
+                    wordbook[name] = words.index(i) + 1
+        return wordbook
+
+    def count(self, word):
+        wordbook = {}
+        count = 0
+        for name,words in self.get_all_words().items():
+            for i in words:
+                if word.lower() in i:
+                    count += 1
+                    wordbook[name] = count
+        return wordbook
+
 
 
 
@@ -32,4 +44,4 @@ class WordsFinder:
 finder2 = WordsFinder('test_file.txt')
 print(finder2.get_all_words()) # Все слова
 print(finder2.find('TEXT'))# 3 слово по счёту
-#print(finder2.count('teXT')) # 4 слова teXT в тексте всего
+print(finder2.count('teXT')) # 4 слова teXT в тексте всего
