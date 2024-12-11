@@ -1,0 +1,14 @@
+def is_prime(func):
+    def wrapper(*numbers):
+        result = func(*numbers)
+        if sum(numbers) % 2 != 0:
+            print('Простое')
+        else:
+            print('Составное')
+    return wrapper
+
+@is_prime
+def sum_three(*numbers):
+    print(sum(numbers))
+
+result = sum_three(2, 3, 6)
