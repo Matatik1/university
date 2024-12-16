@@ -1,0 +1,42 @@
+import threading
+import time
+import datetime
+
+def wite_words(word_count, file_name):
+    file = open(file_name, 'w', encoding="utf-8")
+    for i in range(1, word_count + 1):
+        file.write(f'Какое-то слово № {i} \n')
+        time.sleep(0.1)
+    file.close()
+    print(f'Завершилась запись в файл {file_name}')
+
+time_work_start = datetime.datetime.now()
+wite_words(10, 'example1.txt')
+wite_words(30, 'example2.txt')
+wite_words(200, 'example3.txt')
+wite_words(100, 'example4.txt')
+time_work_end = datetime.datetime.now()
+time_work = time_work_end - time_work_start
+print(f'Работа потока: {time_work}')
+
+time_work_start2 = datetime.datetime.now()
+thread_1 = threading.Thread(target= wite_words, args= (10, 'example5.txt'))
+thread_2 = threading.Thread(target= wite_words, args= (30, 'example6.txt'))
+thread_3 = threading.Thread(target= wite_words,args= (200,'example7.txt'))
+thread_4 = threading.Thread(target= wite_words,args= (100,'example8.txt'))
+
+thread_1.start()
+thread_2.start()
+thread_3.start()
+thread_4.start()
+
+thread_1.join()
+thread_2.join()
+thread_3.join()
+thread_4.join()
+time_work_end2 = datetime.datetime.now()
+time_work2 = time_work_end2 - time_work_start2
+print(f'Работа потока: {time_work2}')
+
+
+
