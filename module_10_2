@@ -11,13 +11,13 @@ class Knight(threading.Thread):
     def run(self):
         print(f'{self.name} , на нас напали!')
         enemy = 100
-        day = 1
+        day = 0
         while enemy != 0:
             enemy -= self.power
             day += 1
             time.sleep(1)
-            print(f'{self.name} сражается {day -1} день(дня)..., осталось {enemy} войнов \n')
-        print(f'{self.name} одержал победу спустя {day - 1} дней(дня)')
+            print(f'{self.name} сражается {day} день(дня)..., осталось {enemy} войнов \n')
+        print(f'{self.name} одержал победу спустя {day} дней(дня)')
 
 first_knight = Knight('Sir Lancelot', 10)
 second_knight = Knight("Sir Galahad", 20)
