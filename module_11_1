@@ -1,0 +1,20 @@
+import requests
+import pandas
+import numpy
+
+r = requests.get('https://dzen.ru/?yredirect=true')
+print(r.status_code) # Проверка доступности страницы
+print(r.headers['content-type'])
+
+key = [1, 2, 3]
+p = pandas.Series(key)
+index = ['a', 'b', 'c']
+si = pandas.Series(key, index)
+print(si)
+
+a = numpy.array([[1, 2, 3],[4, 5, 6]])
+
+print(a)
+print(a.shape)
+print(a.ndim)
+print(a.size)
