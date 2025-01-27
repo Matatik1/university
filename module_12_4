@@ -1,0 +1,59 @@
+import unittest
+import logging
+
+logging.basicConfig(level=logging.INFO, filemode='w', filename='runner_test.log', encoding='utf-8',
+                    format='%(levelname)s | %(message)s | %(asctime)s')
+
+class Runner:
+    def __init__(self, name, speed):
+        self.distance = 0
+        if isinstance(name, str):
+            self.name = name
+        else:
+            raise TypeError(f'Имя может быть только строкой, передано {type(name).__name__}')
+        self.distance = 0
+        if speed > 0:
+            self.speed = speed
+        else:
+            raise ValueError(f'Скорость не может быть отрицательной, сейчас {speed}')
+    def run(self):
+        self.distance += 10
+    def walk(self):
+        self.distance += 5
+    def __str__(self):
+        return self.name
+
+class RunnerTest(unittest.TestCase):
+    def test_walk(self):
+        try:
+            runner_w = Runner('walk',-1)
+            for i in range(10):
+                runner_w.walk()
+            logging.info(f'"test_walk" выполнен успешно')
+            self.assertEqual(runner_w.distance, 50)
+        except ValueError:
+            logging.warning(f'Неверная скорость для Runner', exc_info=True)
+
+    def test_run(self):
+        try:
+            runner_r = Runner(1,-1)
+            for i in range(10):
+                runner_r.run()
+            logging.info(f'"test_run" выполнен успешно')
+            self.assertEqual(runner_r.distance, 100)
+        except TypeError:
+            logging.warning(f'Неверный тип данных для объекта Runner', exc_info=True)
+
+    '''def test_challenge(self):
+        runner_w = Runner('walk')
+        runner_r = Runner('run')
+        for i in range(10):
+            runner_w.walk()
+            runner_r.run()
+        self.assertNotEqual(runner_w.distance, runner_r.distance)'''
+
+
+
+if __name__ =='__main__':
+    unittest.main()
+
